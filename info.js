@@ -8,11 +8,11 @@ var info3 = document.getElementById("info3");
 var info4 = document.getElementById("info4");
 item1.addEventListener("click", function(){
     info1.innerHTML = "This is rx7 fd it has a rotory engine.";
-    info2.innerHTML = "It has triangle shaped pistons.";
+    info2.innerHTML = "It has triangle shaped rotors.";
 });
                        
 item2.addEventListener("click", function(){
-    info1.innerHTML = "It is a jz110 has a inline 6 with a turbo.";
+    info1.innerHTML = "It is a jzx110 has a inline 6 with a turbo.";
     info2.innerHTML = "It does good burnouts .";
 });
 item3.addEventListener("click", function(){
