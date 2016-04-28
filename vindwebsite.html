@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+<h1>What is Vindinium</h1>
+<p>vindinum is a game where you try to get the most gold by getting the most mines </p>
+
+<h1>how its played</h1>
+<p>You try to get the most mines out of the three other players. You type your code into the bot to make it smarter.you don't control your bot when 
+you are playing.</p>
+
+<h1>how its won</h1>
+<p>you try to get the most gold </p>
+
+<h2>code</h2>
+<pre><code>
+    Bot.prototype.botBrain = function() {
+    return new Promise(function(resolve, reject) {
+        _this = bot;
+        //////* Write your bot below Here *//////
+        //////* Set `myDir` in the direction you want to go and then bot.goDir is set to myDir at the bottom *////////
+
+        /*                                      *
+         * This Code is global data!            *
+         *                                      */
+
+        // Set myDir to what you want and it will set bot.goDir to that direction at the end.  Unless it is "none"
+        var myDir;
+        var myPos = [bot.yourBot.pos.x, bot.yourBot.pos.y];
+
+        // This peice of code is showing the difference between my bot and a enemy bot.
+        var enemyBots = [];
+        if(bot.yourBot.id != 1) enemyBots.push(bot.bot1);
+        if(bot.yourBot.id != 2) enemyBots.push(bot.bot2);
+        if(bot.yourBot.id != 3) enemyBots.push(bot.bot3);
+        if(bot.yourBot.id != 4) enemyBots.push(bot.bot4);
+        
+        //This peice of code is showing the closestBot.
+        var closestBot= enemyBots[0];
+            for(i = 0; i < enemyBots.length; i++) {
+                if(bot.findDistance(myPos,closestBot) > bot.findDistance(myPos,enemyBots[i]) ){
+                    closestBot = enemyBots[i]
+                }
+                
+            }
+
+        /*                                      *
+         * This Code Decides WHAT to do         *
+         *                                      */
+        var task;
+        
+        //This code shows your bots life 
+        if( bot.yourBot.life < 80) {
+            task= "health"
+        }
+        //This piece of code shows how low a enemys health has to be before you charecter will attack. 
+        else if( closestBot.life < 45){
+            task= "lowest health"
+        } 
+        //This peice of code shows freemines.
+        else{
+            task= "freemines"
+        }
+        
+
+        /*                                      *
+         * This Code Determines HOW to do it    *
+         *                                      */
+
+        // This Code find the nearest freemine and sets myDir toward that direction //
+        if(task === "freemines") {
+            var closestMine = bot.freeMines[0];
+            for(i = 0; i < bot.freeMines.length; i++) {
+                if(bot.findDistance(myPos, closestMine) > bot.findDistance(myPos, bot.freeMines[i])) {
+                    closestMine = bot.freeMines[i];
+                }
+            }
+            console.log("Claiming a Free Mine!");
+            myDir = bot.findPath(myPos, closestMine);
+        }
+
+        // This peice of code shows the enemy with the lowest health
+        if(task === "lowest health"){
+            console.log("Claiming health ");
+            myDir = bot.findPath(myPos, closestBot);
+        }
+
+        // 
+        if(task ==="health"){
+            var closesttavern= bot.taverns[0];
+            for(i = 0; i < bot.taverns.length; i++) {
+                if(bot.findDistance(myPos,closesttavern) > bot.findDistance(myPos, bot.taverns[i]) ){
+                    closesttavern = bot.taverns[i]
+                }
+                
+            }
+            console.log("claiming a tavern");
+            myDir = bot.findPath(myPos,closesttavern)
+        }
+
+        /*                                                                                                                              *
+         * This Code Sets your direction based on myDir.  If you are trying to go to a place that you can't reach, you move randomly.   *
+         * Otherwise you move in the direction set by your code.  Feel free to change this code if you want.                            */
+        if(myDir === "none" || myDir === undefined) {
+            console.log("Going Random!");
+            var rand = Math.floor(Math.random() * 4);
+            var dirs = ["north", "south", "east", "west"];
+            bot.goDir = dirs[rand];
+        } else {
+            bot.goDir = myDir;
+        }
+
+
+
+        ///////////* DON'T REMOVE ANTYTHING BELOW THIS LINE *//////////////
+        resolve();
+    });
+}
+
+</code></pre>
+
+
+<h1>what my bot does</h1>
+<p>My bot goes after the enemy with the lowest health by righting a peice of code saying attack bot with lowest health.
+,also it goes after the closest mine.</p>
+<h1>Did your bot do what you wanted it to do.</h1>
+<p>My bot did do what i wanted it to do </p>
+
+<h1>was it simple or  complicated.</h1>
+<p>It was complicated in the beging but it became simpler later on. </p>
+
+<h1>how has your understanding of AI in genral changed.</h1>
+<p>I realized that it takes a lot of hard work to make a AI.</p>
+    </body>
+</html>
